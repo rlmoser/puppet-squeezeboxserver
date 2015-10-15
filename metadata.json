@@ -1,0 +1,21 @@
+{
+  "name": "rlmoser-squeezeboxserver",
+  "version": "0.1.0",
+  "author": "rlmoser",
+  "summary": "This module manages a squeezeboxserver instance installed from github sources.",
+  "license": "?",
+  "source": "git://github.com/rlmoser/puppet-squeezeboxserver.git",
+  "project_page": "https://github.com/rlmoser/puppet-squeezeboxserver",
+  "issues_url": "https://github.com/rlmoser/puppet-squeezeboxserver/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 1.0.0"
+    },
+    {
+      "name": "puppetlabs/vcsrepo",
+      "version_requirement": ">=1.0.0"
+    }
+  ]
+}
+
