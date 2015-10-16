@@ -1,7 +1,7 @@
 class squeezeboxserver::install::vcs {
   # TODO: make these parameters
   $install_destination = '/opt/slimserver'
-  $install_source      = 'https://github.com/Logitech/slimserver-platforms.git'
+  $install_source      = 'https://github.com/Logitech/slimserver.git'
   $install_revision    = 'public/7.9'
   $install_vcsprovider = 'git'
   $install_ensure      = 'present'
@@ -11,6 +11,8 @@ class squeezeboxserver::install::vcs {
   $conf_dir            = '/etc/squeezeboxserver'
   $conf_dir_ensure     = 'directory'
   $conf_files_ensure   = 'file'
+  $lib_dir             = '/var/lib/squeezeboxserver'
+  $lib_dir_ensure      = 'directory'
   $data_dir            = '/var/lib/squeezeboxserver/cache'
   $data_dir_ensure     = 'directory'
   $log_dir             = '/var/log/squeezeboxserver'
@@ -51,7 +53,13 @@ class squeezeboxserver::install::vcs {
     owner   => $user_name,
     group   => $user_name,
     mode    => '0755',
-    require => User[$user_name],
+  }
+
+  file {$lib_dir:
+    ensure  => $lib_dir_ensure,
+    owner   => $user_name,
+    group   => $user_name,
+    mode    => '0755',
   }
 
   file {$data_dir:
@@ -59,7 +67,6 @@ class squeezeboxserver::install::vcs {
     owner   => $user_name,
     group   => $user_name,
     mode    => '0755',
-    require => User[$user_name],
   }
 
   file {$log_dir:
@@ -67,7 +74,6 @@ class squeezeboxserver::install::vcs {
     owner   => $user_name,
     group   => $user_name,
     mode    => '0755',
-    require => User[$user_name],
   }
 
   file {$plugin_dir:
@@ -75,7 +81,6 @@ class squeezeboxserver::install::vcs {
     owner   => $user_name,
     group   => $user_name,
     mode    => '0755',
-    require => User[$user_name],
   }
 
   file {$pref_dir:
@@ -83,7 +88,6 @@ class squeezeboxserver::install::vcs {
     owner   => $user_name,
     group   => $user_name,
     mode    => '0755',
-    require => User[$user_name],
     }
 
   file {"${conf_dir}/convert.conf":
@@ -91,7 +95,6 @@ class squeezeboxserver::install::vcs {
     owner   => $user_name,
     group   => $user_name,
     mode    => '0644',
-    require => User[$user_name],
     replace => false,
     source  => "${install_destination}/convert.conf",
   }
@@ -101,7 +104,6 @@ class squeezeboxserver::install::vcs {
     owner   => $user_name,
     group   => $user_name,
     mode    => '0644',
-    require => User[$user_name],
     replace => false,
     source  => "${install_destination}/modules.conf",
   }
@@ -111,7 +113,6 @@ class squeezeboxserver::install::vcs {
     owner   => $user_name,
     group   => $user_name,
     mode    => '0644',
-    require => User[$user_name],
     replace => false,
     source  => "${install_destination}/types.conf",
   }
