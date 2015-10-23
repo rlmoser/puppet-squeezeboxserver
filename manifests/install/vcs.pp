@@ -5,12 +5,12 @@ class squeezeboxserver::install::vcs {
   $install_revision     = 'public/7.9'
   $install_vcsprovider  = 'git'
   $install_ensure       = 'present'
-  $service_bin          = "${install_destination}/server.pl"
+  $service_bin          = "${install_destination}/slimserver.pl"
   $service_charset      = 'utf8'
   $service_options      = ''
   $service_file         = '/etc/systemd/system/squeezeboxserver.service'
   $service_filemode     = '0644'
-  $service_template     = 'puppet:///squeezeboxserver/squeezeboxserver.service.erb'
+  $service_template     = 'squeezeboxserver/squeezeboxserver.service.erb'
   $user_name            = 'squeezeboxserver'
   $user_ensure          = 'present'
   $user_comment         = 'Logitech Media Server user'
