@@ -1,0 +1,20 @@
+[Unit]
+Description=Logitech Media Server
+After=network.target
+
+[Service]
+Type=simple
+User=<% @user_name %>
+Group=<% @user_name %>
+ExecStart=<% if @custom_perl != ''><% @custom_perl %> <% end -%>
+<% @service_bin %>\
+ --cachedir=<% @data_dir %>\
+ --prefsdir=<% @pref_dir %>\
+ --logdir=<% @log_dir %>\
+ --charset=<% @service_charset %>\
+ <% @service_options %>
+RestartSec=5
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

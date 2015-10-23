@@ -5,6 +5,12 @@ class squeezeboxserver::install::vcs {
   $install_revision    = 'public/7.9'
   $install_vcsprovider = 'git'
   $install_ensure      = 'present'
+  $service_bin         = "${install_destination}/server.pl"
+  $service_charset     = 'utf8'
+  $service_options     = ''
+  $service_file        = '/etc/systemd/system/squeezeboxserver.service'
+  $service_filemode    = '0644'
+  $service_template    = 'puppet:///squeezeboxserver/squeezeboxserver.service.erb'
   $user_name           = 'squeezeboxserver'
   $user_ensure         = 'present'
   $user_comment        = 'Logitech Media Server user'
@@ -13,14 +19,15 @@ class squeezeboxserver::install::vcs {
   $conf_files_ensure   = 'file'
   $lib_dir             = '/var/lib/squeezeboxserver'
   $lib_dir_ensure      = 'directory'
-  $data_dir            = '/var/lib/squeezeboxserver/cache'
+  $data_dir            = "${lib_dir}/cache"
   $data_dir_ensure     = 'directory'
   $log_dir             = '/var/log/squeezeboxserver'
   $log_dir_ensure      = 'directory'
-  $plugin_dir          = '/var/lib/squeezeboxserver/Plugins'
+  $plugin_dir          = "${lib_dir}/Plugins"
   $plugin_dir_ensure   = 'directory'
-  $pref_dir            = '/var/lib/squeezeboxserver/prefs'
+  $pref_dir            = "${lib_dir}/prefs"
   $pref_dir_ensure     = 'directory'
+  $use_systemd         = true
   
   # TODO: logic for ensure: absent
 
@@ -115,6 +122,15 @@ class squeezeboxserver::install::vcs {
     mode    => '0644',
     replace => false,
     source  => "${install_destination}/types.conf",
+  }
+
+  file {$service_file:
+    ensure  => $conf_files_ensure,
+    owner   => root,
+    group   => root,
+    mode    => $service_filemode,
+    replace => false,
+    content => template($service_template),
   }
 
 }
