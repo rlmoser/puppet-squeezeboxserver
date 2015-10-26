@@ -6,6 +6,7 @@ After=network.target
 Type=simple
 User=<%= @user_name %>
 Group=<%= @user_name %>
+Environment=LANG=en_US.utf8
 ExecStart=<% if @custom_perl != '' %><%= @custom_perl %> <% end -%>
 <%= @service_bin %>\
  --cachedir=<%= @data_dir %>\
